@@ -1,0 +1,111 @@
+
+@layout('layouts.main')
+
+@section('content')
+  <h2 class="my-4"><i class="fi-rr-dashboard"></i> <span class="text-light-blue">painel de controle</span></h2>
+  <div class="row justify-content-center">
+     <!--Pacientes-->
+    <div class="col-12 col-md-4">     
+      <div class="m-card">
+        <h1><i class="fi-rr-users"></i></h1>
+        <h2 class="text-center my-3">pacientes</h2>
+        <a href="/patients" class="btn btn-outline-primary btn-block my-5">acessar</a>
+      </div>
+    </div>
+
+     <!--Lote de Vacinas-->
+     <div class="col-12 col-md-4">     
+      <div class="m-card">
+        <h1><i class=" fi-rr-medicine"></i></h1>
+        <h2 class="text-center my-3">lote de vacinas</h2>
+        <a href="/vaccines" class="btn btn-outline-primary btn-block my-5">acessar</a>
+      </div>
+    </div>
+
+     <!--Laboratórios
+     <div class="col-12 col-md-3">     
+      <div class="m-card">
+        <h1><i class="fi-rr-school"></i></h1>
+        <h2 class="text-center my-3">laboratórios</h2>
+        <a href="/labs" class="btn btn-outline-primary btn-block my-5">acessar</a>
+      </div>
+    </div>-->
+
+    <!--Relatórios-->
+    <div class="col-12 col-md-4">     
+      <div class="m-card">
+        <h1><i class="fi-rr-stats"></i></h1>
+        <h2 class="text-center my-3">relatórios</h2>
+        <a href="/labs" class="btn btn-outline-primary btn-block my-5">acessar</a>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4">
+       <h2 class="text-center my-4">aguardando vacinação</h2>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col">Data Nascimento</th>
+            <th scope="col">CPF/SUS</th>
+            <th scope="col">Celular/Telefone</th>
+            <th scope="col">Endereço</th>
+            <th scope="col">1ª Dose</th>
+            <th scope="col">2ª Dose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">1</th>
+            <td>André Augusto Martins Sobrinho</td>
+            <td>17/02/1993 <br> 28 anos</td>
+            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
+            <td>(35) 9 9232-1806</td>
+            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
+            <td> <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666</td>
+            <td>
+              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+             </td>
+          </tr>
+
+          <tr>
+            <th scope="row">2</th>
+            <td>André Augusto Martins Sobrinho</td>
+            <td>17/02/1993 <br> 28 anos</td>
+            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
+            <td>(35) 9 9232-1806</td>
+            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
+            <td>
+              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+             </td>
+            <td>
+              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+             </td>
+          </tr>
+
+          <tr>
+            <th scope="row">2</th>
+            <td>André Augusto Martins Sobrinho</td>
+            <td>17/02/1993 <br> 28 anos</td>
+            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
+            <td>(35) 9 9232-1806</td>
+            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
+            <td>
+              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+             </td>
+            <td>
+              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+             </td>
+          </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+@endsection
