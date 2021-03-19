@@ -17,4 +17,7 @@
 const Route = use('Route')
 
 Route.on('/').render('index')
-Route.on('/patients').render('patients/show')
+Route.get('/patients', 'PatientController.home')
+Route.on('/login',).render('auth.login');
+Route.on('/add',).render('patients/create');
+

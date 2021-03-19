@@ -25,53 +25,31 @@
       </tr>
     </thead>
     <tbody>
+      @each(patient in patients)
       <tr>
         <th scope="row">1</th>
-        <td>André Augusto Martins Sobrinho</td>
-        <td>17/02/1993 <br> 28 anos</td>
-        <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-        <td>(35) 9 9232-1806</td>
-        <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-        <td> <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666</td>
-        <td>
-          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
+        <td>{{patient.nome}}</td>
+        <td>{{patient.data_nascimento}}<br> 28 anos</td>
+        <td>{{patient.documento}}</td>
+        <td>{{patient.celular}}</td>
+        <td>{{patient.endereco}}</td>
+        <td> 
+          @if(patient.lote_dose_1 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666
+          @else
           <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
+        </td>
+        <td>
+          @if(patient.lote_dose_2 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666
+          @else
+          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
          </td>
       </tr>
-
-      <tr>
-        <th scope="row">2</th>
-        <td>André Augusto Martins Sobrinho</td>
-        <td>17/02/1993 <br> 28 anos</td>
-        <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-        <td>(35) 9 9232-1806</td>
-        <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-        <td>
-          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-         </td>
-        <td>
-          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-         </td>
-      </tr>
-
-      <tr>
-        <th scope="row">2</th>
-        <td>André Augusto Martins Sobrinho</td>
-        <td>17/02/1993 <br> 28 anos</td>
-        <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-        <td>(35) 9 9232-1806</td>
-        <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-        <td>
-          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-         </td>
-        <td>
-          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-         </td>
-      </tr>
+      @endeach
+     
       
     </tbody>
   </table>

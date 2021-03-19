@@ -1,0 +1,10 @@
+@layout('layouts.main')
+@section('main')
+  <h1>Login</h1>
+
+  {{ csrfField() }}
+  <form action="" method="post">
+    <label for="username">Usuário</label>
+    <input type="text" name="username" value="{{ old('username', '')}}">
+  </form>
+@endsection
