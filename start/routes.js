@@ -20,4 +20,5 @@ Route.on('/').render('index')
 Route.get('/patients', 'PatientController.home')
 Route.on('/login',).render('auth.login');
 Route.on('/add',).render('patients/create');
+Route.post('/patient/new', 'patientController.store')
 

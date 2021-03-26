@@ -1,5 +1,13 @@
 @layout('layouts.main')
 @section('content')
+@if(old('notification'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{old('notification')}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent">
     <li class="breadcrumb-item"><a href="/">painel</a></li>

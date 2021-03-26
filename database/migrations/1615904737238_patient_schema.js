@@ -9,6 +9,7 @@ class PatientSchema extends Schema {
       table.increments()
       table.string('nome', 240).notNullable()
       table.date('data_nascimento')
+      table.string('sexo')
       table.string('documento', 11)
       table.string('celular', 17)
       table.string('telefone', 17)
