@@ -45,14 +45,14 @@
           @if(patient.lote_dose_1 != null)
           <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666
           @else
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          <a href="vacinar/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
           @endif
         </td>
         <td>
-          @if(patient.lote_dose_2 != null)
-          <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666
+          @if(patient.lote_dose_1 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose_1}} <br>  PFIZER: Lote: A0666
           @else
-          <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          <a href="vacinar/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
           @endif
          </td>
       </tr>

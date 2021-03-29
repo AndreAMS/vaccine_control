@@ -18,7 +18,7 @@ class PatientController {
     await patient.save()
 
     session.flash({notification: "Paciente Incluido com sucesso"})
-    return response.redirect('patients/show')
+    return response.redirect('/patients')
   }
 }
 
