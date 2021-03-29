@@ -7,8 +7,6 @@ class VaccineSchema extends Schema {
   up () {
     this.create('vaccines', (table) => {
       table.increments()
-     
-      table.string('nome')
       table.string('lote')
       table.date('data_recebimento')
       table.integer('quantidade_doses')

@@ -9,10 +9,10 @@ class LaboratoryController {
   async store({response, request, session}){
     const laboratory  = new Laboratory()
     laboratory.nome = request.input('nome')
-
+    laboratory.nome_vacina = request.input('nome_vacina')
     await laboratory.save()
 
-    session.flash({notification: "laboratório Incluido com sucesso"})
+    session.flash({notification: "Nova Vacina/Laboratório Incluido com sucesso"})
     return response.redirect('/vaccines/laboratories')
 
   }

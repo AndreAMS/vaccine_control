@@ -8,6 +8,7 @@ class LaboratoriesSchema extends Schema {
     this.create('laboratories', (table) => {
       table.increments()
       table.string('nome')
+      table.string('nome_vacina')
       table.timestamps()
     })
   }

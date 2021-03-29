@@ -23,10 +23,105 @@
       </a>
     
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        <a class="dropdown-item" href="vaccines/add"> Nova vacina</a>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#vaccineModal"> Nova vacina</a>
         <a class="dropdown-item" href="vaccines/laboratories"> Laboratórios</a>
       </div>
    
   </h2>
+
   <hr>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Lote</th>
+        <th scope="col">Laboratório/Vacina</th>
+        <th scope="col">Quantidade Disponível</th>
+     
+      </tr>
+    </thead>
+    <tbody>
+      @each(lote in lotesList)
+      <tr>
+        <th scope="row">{{ ($loop.index + 1) }}</th>
+        <td>{{lote.lote}}</td>
+        <td>{{lote.nome_vacina}} - {{lote.nome}}}</td>
+        @if(lote.quantidade_doses <=0)
+        <td class="bg-danger">{{lote.quantidade_doses}}</td>
+          
+        @elseif(lote.quantidade_doses <=10)
+        <td class="bg-warning">{{lote.quantidade_doses}}</td>
+        @else
+        <td>{{lote.quantidade_doses}}</td>
+        @endif
+      </tr>
+      @else
+      <tr aria-colspan="3" colspan="3">
+      <div class="alert alert-primary" role="alert">
+        Não existem dados cadastrados.
+      </div>
+      </tr>
+      @endeach
+    </tbody>
+  </table>
+   <!--New Vaccine Modal-->
+   <div class="modal fade" id="vaccineModal" tabindex="-1" aria-labelledby="vaccineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="vaccineModalLabel"> <i class="fi-rr-plus"></i> nova vacina</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route ('/vaccine/new') }}" method="post">
+            {{ csrfField() }}
+            <div class="form-row">
+             
+              <div class="col-12 my-2">
+                <label for="Laboratório">Vacina/Laboratório</label>
+                <select name="laboratorio" id="laboratorio" class="form-control">
+                  @each(laboratory in laboratories)
+                  <option value="{{laboratory.id}}"> {{laboratory.nome}} - {{laboratory.nome_vacina}}</option>
+                
+                  @endeach
+                </select>
+              </div>
+              <div class="col-12 my-2">
+                <label for="">Lote</label>                  
+                <input type="text" class="form-control" id="lote" name="lote" placeholder="EX: A0002">
+              </div>
+              <div class="col-12 my-2">
+                <label for="">Quantidade de doses</label>                  
+                <input type="number" class="form-control" id="quantidade_doses" name="quantidade_doses" placeholder="Somente Numeros">
+              </div>
+              <div class="col-12 my-2">
+                <label for="">Data Recebimento</label>
+                <input type="text" class="form-control" data-format="**-**-****" data-mask="DD/MM/YYYY" placeholder="Data Recebimento" name="data_recebimento" id="data_recebimento" onblur="change_date()">
+                <input type="hidden" id="newDate">
+              </div>
+              <div class="col-12 my-2">
+                <label for="">Dias para segunda dose</label>                  
+                <input type="number" class="form-control" id="segunda_dose" name="segunda_dose" placeholder="Somente Numero">
+              </div>
+              <div class="col-12 my-2">
+                <textarea name="observacao" id="observacao" class=form-control rows="10"></textarea>
+              </div>
+              <button class="btn btn-primary mt-3">Salvar</button>
+            </div>
+          </form>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+  <script>
+    function change_date(){
+     let oldDate = $("#data_recebimento").val();
+     alert(oldDate)
+    let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
+     $("#newDate").val(newDate)
+    }
+  </script>
   @endsection

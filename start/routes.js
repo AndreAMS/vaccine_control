@@ -21,9 +21,11 @@ Route.get('/patients', 'PatientController.home')
 Route.on('/login',).render('auth.login');
 Route.on('patients/add',).render('patients/create');
 Route.post('/patient/new', 'patientController.store')
-Route.on('/vaccines',).render('vaccines/list');
+//Route.on('/vaccines',).render('vaccines/list');
+Route.get('/vaccines', 'VaccineController.home')
 Route.on('vaccines/add',).render('vaccines/create');
 //Route.on('vaccines/laboratories').render('vaccines/laboratories')
 Route.get('vaccines/laboratories', 'LaboratoryController.home')
 Route.post('laboratory/new', 'laboratoryController.store')
+Route.post('vaccine/new', 'vaccineController.store')
 

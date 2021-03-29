@@ -25,31 +25,7 @@
       </a>
 
       
-    <!--New Laboratory Modal-->
-    <div class="modal fade" id="laboratoryModal" tabindex="-1" aria-labelledby="laboratoryModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="laboratoryModalLabel"> <i class="fi-rr-plus"></i> novo laboratorio</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form action="{{ route ('/laboratory/new') }}" method="post">
-              {{ csrfField() }}
-              <div class="form-row">
-                <div class="col-12">                  
-                  <input type="text" class="form-control" id="nome" name="nome" placeholder="nome do laboratório Ex: butantan">
-                </div>
-                <button class="btn btn-primary mt-3">Salvar</button>
-              </div>
-            </form>
-          </div>
-        
-        </div>
-      </div>
-    </div>
+    
      
    
   </h2>
@@ -73,4 +49,38 @@
        
       </tr>
       @endeach
+    </tbody>
+  </table>
+
+  <!--New Laboratory Modal-->
+  <div class="modal fade" id="laboratoryModal" tabindex="-1" aria-labelledby="laboratoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="laboratoryModalLabel"> <i class="fi-rr-plus"></i> novo laboratorio</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="{{ route ('/laboratory/new') }}" method="post">
+            {{ csrfField() }}
+            <div class="form-row">
+              <div class="col-12 my-2">
+                <label for="">Nome do laboratório</label>                  
+                <input type="text" class="form-control" id="nome" name="nome" placeholder="Ex: butantan">
+              </div>
+              <div class="col-12 my-2">
+                <label for="">Nome da Vacina</label>                  
+                <input type="text" class="form-control" id="nome_vacina" name="nome_vacina" placeholder="Ex: Coronavac">
+              </div>
+              <button class="btn btn-primary mt-3">Salvar</button>
+            </div>
+          </form>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+
   @endsection
