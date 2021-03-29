@@ -9,7 +9,7 @@
 </nav>
   <h2 class="my-4">
     <i class="fi-rr-users"></i> <span class="text-light-blue">Novo Paciente</span>
-    <a href="/patients" class="btn btn-primary float-right"><i class="fi-rr-plus"></i> Voltar</a>
+    <a href="/patients" class="btn btn-outline-secondary float-right"><i class="fi-rr-angle-left"></i> Voltar</a>
   </h2>
   <hr>
 <div class="row justify-content-center">
@@ -24,13 +24,15 @@
       </div>
       <div class="col-4 mb-2">
         <label for="">Data Nascimento</label>
-        <input type="text" class="form-control" placeholder="Data Nascimento" name="data_nascimento" id="data_nascimento">
+        <input type="text" class="form-control" data-format="**-**-****" data-mask="DD/MM/YYYY" placeholder="Data Nascimento" name="data_nascimento" id="data_nascimento" onblur="change_date()">
+        <input type="hidden" id="newDate">
       </div>
       <div class="col-2 mb-2">
         <label for="">Sexo</label>
         <select name="sexo" id="sexo" class="form-control">
           <option value="I">Indefinido</option>
           <option value="F">Feminino</option>
+          <option value="F">Masculino</option>
         </select>
       </div>
       <div class="col-5 mb-2">
@@ -48,4 +50,12 @@
   </form>
 </div>
 </div>
+<script>
+  function change_date(){
+   let oldDate = $("#data_nascimento").val();
+   alert(oldDate)
+  let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
+   $("#newDate").val(newDate)
+  }
+</script>
 @endsection

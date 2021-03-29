@@ -19,6 +19,11 @@ const Route = use('Route')
 Route.on('/').render('index')
 Route.get('/patients', 'PatientController.home')
 Route.on('/login',).render('auth.login');
-Route.on('/add',).render('patients/create');
+Route.on('patients/add',).render('patients/create');
 Route.post('/patient/new', 'patientController.store')
+Route.on('/vaccines',).render('vaccines/list');
+Route.on('vaccines/add',).render('vaccines/create');
+//Route.on('vaccines/laboratories').render('vaccines/laboratories')
+Route.get('vaccines/laboratories', 'LaboratoryController.home')
+Route.post('laboratory/new', 'laboratoryController.store')
 

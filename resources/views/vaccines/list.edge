@@ -1,0 +1,32 @@
+@layout('layouts.main')
+@section('content')
+@if(old('notification'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{old('notification')}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a href="/">painel</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Lote de vacinas</li>
+  </ol>
+</nav>
+  <h2 class="my-4">
+    <i class="fi-rr-medicine"></i> <span class="text-light-blue">Lote de vacinas</span>
+   
+    
+      <a class="btn btn-primary float-right dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fi-rr-settings"></i> gerenciar
+      </a>
+    
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item" href="vaccines/add"> Nova vacina</a>
+        <a class="dropdown-item" href="vaccines/laboratories"> Laboratórios</a>
+      </div>
+   
+  </h2>
+  <hr>
+  @endsection

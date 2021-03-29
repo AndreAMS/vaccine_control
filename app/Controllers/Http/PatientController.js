@@ -11,7 +11,7 @@ class PatientController {
   async store({request, response, session}){
     const patient = new Patient()
     patient.nome = request.input('nome'),
-    patient.data_nascimento = request.input('data_nascimento'),
+    patient.data_nascimento = request.input('newDate'),
     patient.sexo = request.input('sexo'),
     patient.documento = request.input('documento')
 
