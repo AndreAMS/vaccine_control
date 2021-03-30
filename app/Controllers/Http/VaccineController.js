@@ -23,7 +23,8 @@ class VaccineController {
     vaccine.data_recebimento = request.input('newDate')
     vaccine.quantidade_doses = request.input('quantidade_doses')
     vaccine.dias_segunda_dose = request.input('segunda_dose')
-    vaccine.laboratory_id = request.input('laboratory')
+    vaccine.observacao = request.input('observacao')
+    vaccine.laboratory_id = request.input('laboratorio')
 
     await vaccine.save()
 

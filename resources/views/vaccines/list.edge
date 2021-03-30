@@ -66,7 +66,7 @@
   </table>
    <!--New Vaccine Modal-->
    <div class="modal fade" id="vaccineModal" tabindex="-1" aria-labelledby="vaccineModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="vaccineModalLabel"> <i class="fi-rr-plus"></i> nova vacina</h5>
@@ -75,16 +75,16 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="{{ route ('/vaccine/new') }}" method="post">
+          <form action="{{ route ('/vaccine/new') }}" method="post" id="form">
             {{ csrfField() }}
             <div class="form-row">
              
               <div class="col-12 my-2">
                 <label for="Laboratório">Vacina/Laboratório</label>
                 <select name="laboratorio" id="laboratorio" class="form-control">
-                  @each(laboratory in laboratories)
-                  <option value="{{laboratory.id}}"> {{laboratory.nome}} - {{laboratory.nome_vacina}}</option>
-                
+                  <option value="S">Selecione</option>
+                  @each(laboratory in laboratories)                  
+                  <option value="{{laboratory.id}}"> {{laboratory.nome}} - {{laboratory.nome_vacina}}</option>                
                   @endeach
                 </select>
               </div>
@@ -98,17 +98,18 @@
               </div>
               <div class="col-12 my-2">
                 <label for="">Data Recebimento</label>
-                <input type="text" class="form-control" data-format="**-**-****" data-mask="DD/MM/YYYY" placeholder="Data Recebimento" name="data_recebimento" id="data_recebimento" onblur="change_date()">
-                <input type="hidden" id="newDate">
+                <input type="text" class="form-control" data-format="**-**-****" data-mask="DD/MM/YYYY" placeholder="Data Recebimento" name="data_recebimento" id="data_recebimento">
+                <input type="hidden" id="newDate" name="newDate">
               </div>
               <div class="col-12 my-2">
                 <label for="">Dias para segunda dose</label>                  
                 <input type="number" class="form-control" id="segunda_dose" name="segunda_dose" placeholder="Somente Numero">
               </div>
               <div class="col-12 my-2">
+                <label for="">Observações</label>
                 <textarea name="observacao" id="observacao" class=form-control rows="10"></textarea>
               </div>
-              <button class="btn btn-primary mt-3">Salvar</button>
+              <a href="#" onclick="change_date()" class="btn btn-primary mt-3">Salvar</a>
             </div>
           </form>
         </div>
@@ -119,9 +120,33 @@
   <script>
     function change_date(){
      let oldDate = $("#data_recebimento").val();
-     alert(oldDate)
+    // alert("antiga" + oldDate)
     let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
+     //alert("convertida" + newDate)
      $("#newDate").val(newDate)
+     //alert("do campo" + $("#newDate").val())
+
+       submit()
+    
+     
+    
+    }
+
+    function submit(){
+      let data_recebimento = $('#data_recebimento').val()
+      if($("#laboratorio").val() === 'S'){
+        alert('Selecione o laboratório e vacina')
+      } else if($('#lote').val() === ''){
+        alert('Campo Lote é obrigatório')
+      } else if($('#quantidade_doses').val() === ''){
+        alert('Campo Lote é obrigatório')
+        
+      }else if($('#segunda_dose').val() === ''){
+        alert('Campo Dias para segunda dose é obrigatório')}
+        else{
+      
+      $("#form").submit()
+      }
     }
   </script>
   @endsection
