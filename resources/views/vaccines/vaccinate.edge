@@ -1,0 +1,51 @@
+@layout('layouts.main')
+@section('content')
+@if(old('notification'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{old('notification')}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a href="/">painel</a></li>
+    <li class="breadcrumb-item"><a href="/patient/details/{{patient_id}}">detalhes paciente</a></li>
+    <li class="breadcrumb-item active" aria-current="page">vacinar</li>
+  </ol>
+</nav>
+  <h2 class="my-4">
+    <i class="fi-rr-syringe"></i> <span class="text-light-blue">Vacinar</span>
+   
+    
+
+      <a class="btn btn-outline-secondary float-right mr-2" href="/patient/details/{{patient_id}}">
+        <i class="fi-rr-angle-left"></i> Voltar
+      </a>
+
+      
+    
+     
+   
+  </h2>
+  <hr>
+  <div class="row justify-content-center">
+    <div class="col-10 p-4 rounded details-box">
+      <h1 class="text-center">1ª dose</h1>
+       <h3 class="text-center">{{patient.nome}}</h3>
+
+       <form action="/vaccines/aply" method="post">
+        <div class="row">
+          <div class="col-12 my-2">
+            <label for="Laboratório/ Vacina">Lote Vacina/Laboratorio</label>
+             <select name="laboratories" id="laboratories" class="form-control">
+               <option value="Selecione o Lote"></option>
+             </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+@endsection

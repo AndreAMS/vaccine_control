@@ -1,4 +1,5 @@
 'use strict'
+const Patient  = use('App/Models/Patient')
 const Vaccine  = use('App/Models/Vaccine')
 const Laboratory  = use('App/Models/Laboratory')
 const Database = use('Database')
@@ -31,6 +32,19 @@ class VaccineController {
     session.flash({notification: "Novo Lote incluido com sucesso"})
     return response.redirect('/vaccines')
   }
+
+  async vaccinate({params, view}){
+    const patient_id = params.patient_id
+    const patient = await Patient.find(params.patient_id)
+    const laboratories = await Laboratory.all()
+    return view.render('vaccines/vaccinate',{
+      patient_id: patient_id,
+      patient: patient,
+      laboratoriesList: laboratories.toJSON()
+    })
+  }
 }
+
+
 
 module.exports = VaccineController

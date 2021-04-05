@@ -26,6 +26,10 @@ table tbody td, table.table-fit tfoot td {
   background-color: #cde3f1;
 }
 
+.details-box{
+  background-color: #cde3f18c;
+}
+
 h1,h2,h3,h4,h5,h6{
   color: #03307f;
 }
