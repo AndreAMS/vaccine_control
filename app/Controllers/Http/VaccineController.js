@@ -36,13 +36,16 @@ class VaccineController {
   async vaccinate({params, view}){
     const patient_id = params.patient_id
     const patient = await Patient.find(params.patient_id)
-    const laboratories = await Laboratory.all()
+    const lotes = await Database.raw('select vaccines.lote,  vaccines.quantidade_doses, laboratories.nome, laboratories.nome_vacina from vaccines, laboratories where vaccines.laboratory_id = laboratories.id and vaccines.quantidade_doses>0')
+     const lotesList = JSON.parse(JSON.stringify(lotes)) 
     return view.render('vaccines/vaccinate',{
       patient_id: patient_id,
       patient: patient,
-      laboratoriesList: laboratories.toJSON()
+      lotesList : lotesList[0]
     })
   }
+
+  async aply({params, request, response, session}){}
 }
 
 

@@ -1,5 +1,6 @@
 'use strict'
 const Patient = use('App/Models/Patient')
+const Vaccine = use('App/Models/Vaccine')
 const Database = use('Database')
 class PatientController {
   async home({view}){
@@ -19,6 +20,15 @@ class PatientController {
 
     session.flash({notification: "Paciente Incluido com sucesso"})
     return response.redirect('/patients')
+  }
+
+  async vaccinate({params, request, response, session}){
+    const patient = Patient.find(params.id)
+    const vaccine = Patient.find(params.vaccine_id)
+    patient.lote_dose_1 = request.input('laboratories')
+
+    await patient.save()
+
   }
 }
 

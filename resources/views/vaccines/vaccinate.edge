@@ -35,14 +35,26 @@
       <h1 class="text-center">1ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
 
-       <form action="/vaccines/aply" method="post">
-        <div class="row">
-          <div class="col-12 my-2">
+       <form action="{{'/vaccines/aply' + patient.id + '?_method=PUT'}}" method="post">
+        <div class="row justify-content-center">
+          <div class="col-6 my-2">
             <label for="Laboratório/ Vacina">Lote Vacina/Laboratorio</label>
              <select name="laboratories" id="laboratories" class="form-control">
-               <option value="Selecione o Lote"></option>
+               <option value="0">Selecione o lote</option>
+               <option value="Recusado">Recusado</option>
+               @each(laboratory in lotesList)
+                 <option value="{{laboratory.lote}}">Lote: {{laboratory.lote}} | {{laboratory.nome}} - {{laboratory.nome_vacina}} | {{laboratory.quantidade_doses}} dose(s) diponíveis </option>
+               @endeach
              </select>
           </div>
+          <div class="col-6 my-2">
+            <label for="Laboratório/ Vacina">Data 2ª Dose</label>
+            <input type="text" class="form-control" name="data2dose" id="data2dose">
+          </div>
+          <p class="text-center">
+            <!---<a href="#" class="btn btn-primary btn-lg mt-2">Salvar</a>-->
+            <button type="submit">Salvar</button>
+          </p>
         </div>
       </form>
     </div>
