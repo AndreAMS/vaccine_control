@@ -35,15 +35,16 @@
       <h1 class="text-center">1ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
 
-       <form action="{{'/vaccines/aply' + patient.id + '?_method=PUT'}}" method="post">
+       <form action="{{'/vaccines/vaccinate/' + patient.id + '?_method=PUT'}}" method="POST">
+        {{ csrfField() }}
         <div class="row justify-content-center">
           <div class="col-6 my-2">
             <label for="Laboratório/ Vacina">Lote Vacina/Laboratorio</label>
              <select name="laboratories" id="laboratories" class="form-control">
                <option value="0">Selecione o lote</option>
-               <option value="Recusado">Recusado</option>
-               @each(laboratory in lotesList)
-                 <option value="{{laboratory.lote}}">Lote: {{laboratory.lote}} | {{laboratory.nome}} - {{laboratory.nome_vacina}} | {{laboratory.quantidade_doses}} dose(s) diponíveis </option>
+               <option value="R">Recusado</option>
+               @each(vaccine in lotesList)
+                 <option value="{{vaccine.lote}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }} data-id="{{vaccine.id}}">Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
                @endeach
              </select>
           </div>
@@ -53,11 +54,19 @@
           </div>
           <p class="text-center">
             <!---<a href="#" class="btn btn-primary btn-lg mt-2">Salvar</a>-->
-            <button type="submit">Salvar</button>
+            <button type="submit" class="btn btn-block btn-primary">Salvar</button>
           </p>
         </div>
       </form>
     </div>
   </div>
+  <script>
+    $("#laboratories").change(function() {
+  const $this = $(this); // Cache $(this)
+  const dataVal = $this.find(':selected').data('id'); // Get data value
+  const selectedVal = $this[0].value;
+  alert(`${dataVal}, ${selectedVal}`);
+});
+  </script>
 
 @endsection

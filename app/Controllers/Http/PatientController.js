@@ -23,11 +23,22 @@ class PatientController {
   }
 
   async vaccinate({params, request, response, session}){
-    const patient = Patient.find(params.id)
-    const vaccine = Patient.find(params.vaccine_id)
+    const patient = await Patient.find(params.patient_id)
+    //const vaccine = Patient.find(params.vaccine_id)
     patient.lote_dose_1 = request.input('laboratories')
-
+   // patient.nome = 'Mudou',
+   // patient.data_nascimento = '2021-05-05',
+   // patient.sexo = 'M',
+    patient.documento ='11653979607'
+    console.log(">>>>>>>>>>>>" + request.input('laboratories'))
+    await Database
+  .table('vaccines')
+  .where('id', patient.lote_dose_1)
+  .decrement('quantidade_doses', 1)
+    
     await patient.save()
+    console.log("sucesso")
+    //return response.route('vaccineController.upVaccine' , {vaccine_id: request.input('laboratories')})
 
   }
 }
