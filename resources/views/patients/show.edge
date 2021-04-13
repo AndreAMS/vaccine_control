@@ -35,15 +35,24 @@
     <tbody>
       @each(patient in patients)
       <tr>
-        <th scope="row">1</th>
+        <th scope="row">{{ ($loop.index + 1) }}</th>
         <td>{{patient.nome}}</td>
-        <td>{{patient.data_nascimento}}<br> 28 anos</td>
+        <td>{{patient.data_nascimento}}<br> 
+          
+        </td>
         <td>{{patient.documento}}</td>
-        <td>{{patient.celular}}</td>
+        <td>
+          @unless(patient.celular)
+          -
+          @else
+        {{patient.celular}}
+        @endunless
+         
+        </td>
         <td>{{patient.endereco}}</td>
         <td> 
           @if(patient.lote_dose_1 != null)
-          <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
           @else
           <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
           @endif

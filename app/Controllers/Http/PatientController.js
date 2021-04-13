@@ -24,6 +24,7 @@ class PatientController {
 
   async vaccinate({params, request, response, session}){
     const patient = await Patient.find(params.patient_id)
+    const vaccineId = request.input('vaccineID')
     //const vaccine = Patient.find(params.vaccine_id)
     patient.lote_dose_1 = request.input('laboratories')
    // patient.nome = 'Mudou',
@@ -33,7 +34,7 @@ class PatientController {
     console.log(">>>>>>>>>>>>" + request.input('laboratories'))
     await Database
   .table('vaccines')
-  .where('id', patient.lote_dose_1)
+  .where('id', vaccineId)
   .decrement('quantidade_doses', 1)
     
     await patient.save()

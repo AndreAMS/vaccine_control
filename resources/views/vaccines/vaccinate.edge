@@ -32,6 +32,13 @@
   <hr>
   <div class="row justify-content-center">
     <div class="col-10 p-4 rounded details-box">
+      @if(patient.lote_dose_1 != null)
+      <h3 class="text-center">{{patient.nome}}</h3>
+      <div class="alert alert-warning" role="alert">
+        Paciente Já recebeu a primeira dose
+      </div>
+      @else  
+      
       <h1 class="text-center">1ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
 
@@ -40,13 +47,14 @@
         <div class="row justify-content-center">
           <div class="col-6 my-2">
             <label for="Laboratório/ Vacina">Lote Vacina/Laboratorio</label>
-             <select name="laboratories" id="laboratories" class="form-control">
+             <select name="laboratories" id="laboratories" class="form-control" onchange="getVaccineID(this)">
                <option value="0">Selecione o lote</option>
                <option value="R">Recusado</option>
                @each(vaccine in lotesList)
-                 <option value="{{vaccine.lote}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }} data-id="{{vaccine.id}}">Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
+                 <option  value="{{vaccine.lote}}" data-vaccine="{{vaccine.id}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }}>Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
                @endeach
              </select>
+             <input type="text" id="vaccineID" name="vaccineID">
           </div>
           <div class="col-6 my-2">
             <label for="Laboratório/ Vacina">Data 2ª Dose</label>
@@ -58,15 +66,15 @@
           </p>
         </div>
       </form>
+      @endif
     </div>
   </div>
   <script>
-    $("#laboratories").change(function() {
-  const $this = $(this); // Cache $(this)
-  const dataVal = $this.find(':selected').data('id'); // Get data value
-  const selectedVal = $this[0].value;
-  alert(`${dataVal}, ${selectedVal}`);
-});
+  function getVaccineID(sel) {
+  const opt = sel.options[sel.selectedIndex];
+  const vaccine = opt.dataset.vaccine
+  $('#vaccineID').val(vaccine)
+}
   </script>
 
 @endsection

@@ -44,7 +44,7 @@
       @each(laboratory in laboratories)
       <tr>
         <th scope="row">{{ ($loop.index + 1) }}</th>
-        <td>{{laboratory.nome}}</td>
+        <td>{{laboratory.nome}} - {{laboratory.nome_vacina}}</td>
         <td>{{laboratory.created_at}}</td>
        
       </tr>
