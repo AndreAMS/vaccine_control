@@ -32,17 +32,17 @@
   <hr>
   <div class="row justify-content-center">
     <div class="col-12 col-md-8 p-4 rounded details-box">
-      @if(patient.lote_dose_1 != null)
+      @if(patient.lote_dose_2 != null)
       <h3 class="text-center">{{patient.nome}}</h3>
       <div class="alert alert-warning" role="alert">
-        Paciente Já recebeu a primeira dose
+        Paciente Já recebeu a segunda dose
       </div>
       @else  
       
-      <h1 class="text-center">1ª dose</h1>
+      <h1 class="text-center">2ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
 
-       <form action="{{'/vaccines/vaccinate/' + patient.id + '?_method=PUT'}}" method="POST" id="form">
+       <form action="{{'/vaccines/vaccinate2/' + patient.id + '?_method=PUT'}}" method="POST" id="form">
         {{ csrfField() }}
         <div class="row justify-content-center">
           <div class="col-6 my-2">
@@ -50,6 +50,7 @@
              <select name="laboratories" id="laboratories" class="form-control" onchange="getVaccineID(this)">
                <option value="0">Selecione o lote</option>
                <option value="R">Recusado</option>
+               <option value="F">Faleceu</option>
                @each(vaccine in lotesList)
                  <option  value="{{vaccine.lote}}" data-vaccine="{{vaccine.id}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }}>Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
                @endeach
@@ -59,15 +60,11 @@
         </div>
         <div class="row justify-content-center">
         <div class="col-6 my-2">
-          <label for="Laboratório/ Vacina">Data Aplicação 1ª Dose</label>
-          <input type="text" class="form-control date" name="data_dose1" id="data_dose1">
+          <label for="Laboratório/ Vacina">Data Aplicação 2ª Dose</label>
+          <input type="text" class="form-control date" name="data_dose2" id="data_dose2">
           <input type="hidden" id="newDate" name="newDate">
         </div>
-          <div class="col-6 my-2">
-            <label for="Laboratório/ Vacina">Data Previsão 2ª Dose</label>
-            <input type="text" class="form-control date" name="data_2_dose" id="data_2_dose">
-            <input type="hidden" id="newDate2" name="newDate2">
-          </div>
+        </div>
           <p class="text-center">
             <!---<a href="#" class="btn btn-primary btn-lg mt-2">Salvar</a>-->
             <!--<button type="submit" class="btn btn-block btn-primary">Salvar</button>-->
@@ -87,21 +84,17 @@
 
 function change_date(){
      
-     let oldDate = $("#data_dose1").val();
-     let oldDate2 = $("#data_2_dose").val();
+     let oldDate = $("#data_dose2").val();
     // alert("antiga" + oldDate)
     let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
-    let newDate2 = moment(oldDate2, 'DD/MM/YYYY').format("YYYY-MM-DD")
-    alert("convertida" + newDate2)
+  
      $("#newDate").val(newDate)
-     $("#newDate2").val(newDate2)
      //alert("do campo" + $("#newDate").val())
        submit()
     }
 
     
     function submit(){
-      let data_2_dose = $('#data_2_dose').val()
       if($("#laboratories").val() === "0"){
         alert('Selecione o laboratório e vacina')
       }

@@ -19,6 +19,8 @@
     <a href="patients/add" class="btn btn-primary float-right"><i class="fi-rr-plus"></i> novo paciente</a>
   </h2>
   <hr>
+  <input id="search" type="text" class="form-control"  placeholder="Pesquisa de Pacientes">
+  <hr>
   <table class="table table-bordered table-hover">
     <thead>
       <tr>
@@ -28,19 +30,30 @@
         <th scope="col">CPF/SUS</th>
         <th scope="col">Celular/Telefone</th>
         <th scope="col">Endereço</th>
-        <th scope="col">1ª Dose</th>
-        <th scope="col">2ª Dose</th>
+        <th scope="col" class="text-center">1ª Dose</th>
+        <th scope="col" class="text-center">2ª Dose</th>
       </tr>
     </thead>
     <tbody>
       @each(patient in patients)
       <tr>
         <th scope="row">{{ ($loop.index + 1) }}</th>
-        <td>{{patient.nome}}</td>
+        <td>
+          {{patient.nome}} <br>
+          @if(patient.tipo == 'P')
+          <span class="badge badge-primary">Profissional de saúde</span>
+          @endif
+        </td>
         <td>{{patient.data_nascimento}}<br> 
           
         </td>
-        <td>{{patient.documento}}</td>
+        <td>
+          @unless(patient.documento)
+          <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+          @else
+        {{patient.documento}}  
+        @endunless
+        </td>
         <td>
           @unless(patient.celular)
           -
@@ -50,20 +63,27 @@
          
         </td>
         <td>{{patient.endereco}}</td>
-        <td> 
-          @if(patient.lote_dose_1 != null)
+        <td class="text-center"> 
+          @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
           <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
           @else
           <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
           @endif
         </td>
-        <td>
+        <td class="text-center">
           @if(patient.lote_dose_1 == null)
-          Aguardando primeira dose
-          @elseif(patient.lote_dose_1 != null) 
-          <a href="vacinar-2-dose/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
+          @elseif(patient.lote_dose_2 === 'F')
+          <span class="badge badge-dark">Faleceu</span>
+         @elseif(patient.lote_dose_2 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}}
           @else
-          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose_2}} <br>  PFIZER: Lote: A0666
+          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+          <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
           @endif
          </td>
       </tr>

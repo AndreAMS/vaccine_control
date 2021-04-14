@@ -29,6 +29,8 @@ Route.get('vaccines/laboratories', 'LaboratoryController.home')
 Route.post('laboratory/new', 'laboratoryController.store')
 Route.post('vaccine/new', 'vaccineController.store')
 Route.get('/vaccines/vaccinate/:patient_id', 'vaccineController.vaccinate')
+Route.get('/vaccines/vaccinate2/:patient_id', 'vaccineController.vaccinate2')
 Route.put('/vaccines/vaccinate/:patient_id', 'patientController.vaccinate')
+Route.put('/vaccines/vaccinate2/:patient_id', 'patientController.vaccinate2')
 Route.get('/vaccine/update/:vaccine_id/:lote_id', 'vaccineController.upVaccine')
 

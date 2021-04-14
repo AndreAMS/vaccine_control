@@ -7,7 +7,7 @@ class VaccineController {
 
   async home({view}){
     const vaccines = await Vaccine.all()
-    const lotes = await Database.raw('select vaccines.lote,  vaccines.quantidade_doses, laboratories.nome, laboratories.nome_vacina from vaccines, laboratories where vaccines.laboratory_id = laboratories.id')
+    const lotes = await Database.raw('select vaccines.lote,  vaccines.quantidade_doses,  DATE_FORMAT(vaccines.data_recebimento,"%d/%m/%Y")  as data_recebimento, laboratories.nome, laboratories.nome_vacina from vaccines, laboratories where vaccines.laboratory_id = laboratories.id')
      const lotesList = JSON.parse(JSON.stringify(lotes)) 
     const laboratories = await Laboratory.all()
     return view.render('vaccines/list', {
@@ -39,6 +39,18 @@ class VaccineController {
     const lotes = await Database.raw('select vaccines.id, vaccines.lote,  vaccines.quantidade_doses, laboratories.nome, laboratories.nome_vacina from vaccines, laboratories where vaccines.laboratory_id = laboratories.id and vaccines.quantidade_doses>0')
      const lotesList = JSON.parse(JSON.stringify(lotes)) 
     return view.render('vaccines/vaccinate',{
+      patient_id: patient_id,
+      patient: patient,
+      lotesList : lotesList[0]
+    })
+  }
+
+  async vaccinate2({params, view}){
+    const patient_id = params.patient_id
+    const patient = await Patient.find(params.patient_id)
+    const lotes = await Database.raw('select vaccines.id, vaccines.lote,  vaccines.quantidade_doses, laboratories.nome, laboratories.nome_vacina from vaccines, laboratories where vaccines.laboratory_id = laboratories.id and vaccines.quantidade_doses>0')
+     const lotesList = JSON.parse(JSON.stringify(lotes)) 
+    return view.render('vaccines/vaccinate2',{
       patient_id: patient_id,
       patient: patient,
       lotesList : lotesList[0]

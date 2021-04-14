@@ -6,7 +6,7 @@ const moment = require("moment");
 
 class Patient extends Model {
   static get dates () {
-    return super.dates.concat(['data_nascimento', 'data_dose1'])
+    return super.dates.concat(['data_nascimento', 'data_dose1',  'data_dose2','data_previsao_2_dose'])
   }
 
 
@@ -15,6 +15,10 @@ class Patient extends Model {
     if (field === 'data_nascimento') {
       return value.format('DD/MM/YYYY')
     }else if (field === 'data_dose1') {
+      return value.format('DD/MM/YYYY')
+    }else if (field === 'data_dose2') {
+      return value.format('DD/MM/YYYY')
+    }else if (field === 'data_previsao_2_dose') {
       return value.format('DD/MM/YYYY')
     }
   }

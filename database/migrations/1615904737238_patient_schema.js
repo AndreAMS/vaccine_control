@@ -16,6 +16,7 @@ class PatientSchema extends Schema {
       table.string('telefone', 17)
       table.string('endereco')
       table.date('data_dose1')
+      table.date('data_previsao_2_dose')
       table.date('data_dose2')
       table.string('lote_dose_1')
       table.string('lote_dose_2')

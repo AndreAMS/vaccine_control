@@ -35,6 +35,7 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">Lote</th>
+        <th scope="col">Data Recebimento</th>
         <th scope="col">Laboratório/Vacina</th>
         <th scope="col">Quantidade Disponível</th>
      
@@ -45,7 +46,8 @@
       <tr>
         <th scope="row">{{ ($loop.index + 1) }}</th>
         <td>{{lote.lote}}</td>
-        <td>{{lote.nome_vacina}} - {{lote.nome}}}</td>
+        <td>{{lote.nome}} - {{lote.nome_vacina}}}</td>
+        <td>{{lote.data_recebimento}}}</td>
         @if(lote.quantidade_doses <=0)
         <td class="bg-danger">{{lote.quantidade_doses}}</td>
           
@@ -98,7 +100,7 @@
               </div>
               <div class="col-12 my-2">
                 <label for="">Data Recebimento</label>
-                <input type="text" class="form-control" data-format="**-**-****" data-mask="DD/MM/YYYY" placeholder="Data Recebimento" name="data_recebimento" id="data_recebimento">
+                <input type="text" class="form-control date"  placeholder="Data Recebimento" name="data_recebimento" id="data_recebimento">
                 <input type="hidden" id="newDate" name="newDate">
               </div>
               <div class="col-12 my-2">
