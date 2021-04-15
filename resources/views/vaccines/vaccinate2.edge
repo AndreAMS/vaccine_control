@@ -11,7 +11,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent">
     <li class="breadcrumb-item"><a href="/">painel</a></li>
-    <li class="breadcrumb-item"><a href="/patient/details/{{patient_id}}">detalhes paciente</a></li>
+    <li class="breadcrumb-item"><a href="/patients/detail/{{patient_id}}">detalhes paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">vacinar</li>
   </ol>
 </nav>
@@ -55,7 +55,7 @@
                  <option  value="{{vaccine.lote}}" data-vaccine="{{vaccine.id}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }}>Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
                @endeach
              </select>
-             <input type="text" id="vaccineID" name="vaccineID">
+             <input type="hidden" id="vaccineID" name="vaccineID">
           </div>
         </div>
         <div class="row justify-content-center">

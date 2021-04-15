@@ -39,7 +39,7 @@
       <tr>
         <th scope="row">{{ ($loop.index + 1) }}</th>
         <td>
-          {{patient.nome}} <br>
+       <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
           @if(patient.tipo == 'P')
           <span class="badge badge-primary">Profissional de saúde</span>
           @endif

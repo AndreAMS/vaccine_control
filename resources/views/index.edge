@@ -34,14 +34,13 @@
     <!--Relatórios-->
     <div class="col-12 col-md-4">     
       <div class="m-card">
-        <h1><i class="fi-rr-stats"></i></h1>
-        <h2 class="text-center my-3">relatórios</h2>
-        <a href="/labs" class="btn btn-outline-primary btn-block my-5">acessar</a>
+        <canvas id="oilChart" width="600" height="400"></canvas>
       </div>
     </div>
 
     <div class="col-12 mt-4">
        <h2 class="text-center my-4">aguardando vacinação</h2>
+        
       <table class="table table-bordered table-hover">
         <thead class="thead-light">
           <tr>
@@ -108,4 +107,40 @@
       </table>
     </div>
   </div>
+  @each(age in age60to64) 
+  <input type="hidden" name="faixa1" id="faixa1" value="{{age.qtd}}">
+  @endeach
+  <script>
+     var oilCanvas = document.getElementById("oilChart");
+
+//Chart.defaults.global.defaultFontFamily = "Lato";
+//Chart.defaults.global.defaultFontSize = 18;
+const faixa1 = $('#faixa1').val() //60-64
+//alert(faixa1)
+var oilData = {
+    labels: [
+        "Profissionais de Saúde",
+        "Idosos",
+        "Forças Armadas",
+        "Recusado",
+        "Falecido"
+    ],
+    datasets: [
+        {
+            data: [faixa1, 86.2, 52.2, 51.2, 50.2],
+            backgroundColor: [
+                "#007bff",
+                "#63FF84",
+                "#84FF63",
+                "#dc3545",
+                "#343a40"
+            ]
+        }]
+};
+
+var pieChart = new Chart(oilCanvas, {
+  type: 'pie',
+  data: oilData
+});
+  </script>
 @endsection

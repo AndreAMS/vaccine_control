@@ -16,8 +16,10 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/').render('index')
+//Route.on('/').render('index')
+Route.get('/', 'PatientController.dashboard')
 Route.get('/patients', 'PatientController.home')
+Route.get('/patients/detail/:id', 'PatientController.detail')
 Route.on('/login',).render('auth.login');
 Route.on('patients/add',).render('patients/create');
 Route.post('/patient/new', 'patientController.store')

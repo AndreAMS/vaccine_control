@@ -1,0 +1,88 @@
+@layout('layouts.main')
+@section('content')
+@if(old('notification'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {{old('notification')}}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+@endif
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a href="/">painel</a></li>
+    <li class="breadcrumb-item  active"><a href="#">detalhes paciente</a></li>
+  </ol>
+</nav>
+  <h2 class="my-4">
+    <i class="fi-rr-user"></i> <span class="text-light-blue"> Detalhes Paciente</span>
+   
+    
+
+      <a class="btn btn-outline-secondary float-right mr-2" href="/patients">
+        <i class="fi-rr-angle-left"></i> Voltar
+      </a>
+
+      
+    
+     
+   
+  </h2>
+  <hr>
+  <div class="row justify-content-center">
+    <div class="col-12 col-md-8 p-4 rounded details-box">
+      <h3 class="text-center">{{patient.nome}} <br>
+      <small> 
+        <i class="fi-rr-id-badge"></i> 
+        @unless(patient.documento)
+        -
+        @else
+      {{patient.documento}}  
+      
+      @endunless
+
+      <i class="fi-rr-calendar"></i> 
+      @unless(patient.data_nascimento)
+      -
+      @else
+    {{patient.data_nascimento}}  </small>
+  </small>
+    @endunless
+
+    </h3>
+      <hr>
+      <div class="row justify-content-center">
+        <div class="col-6 text-center">
+          <div style="background: rgba(255,255,255, 0.3)" class="rounded py-4">
+          <h3>1ª Dose</h3>
+          @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
+          @else
+          <a href="/vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
+        </div>
+        </div>
+        <div class="col-6 text-center">
+          <div style="background: rgba(255,255,255, 0.3)" class="rounded py-4">
+          <h3>2ª Dose</h3>
+          @if(patient.lote_dose_1 == null)
+          <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
+          @elseif(patient.lote_dose_2 === 'F')
+          <span class="badge badge-dark">Faleceu</span>
+         @elseif(patient.lote_dose_2 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}}
+          @else
+          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+          <a href="/vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+@endsection

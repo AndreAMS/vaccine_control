@@ -9,6 +9,15 @@ class PatientController {
     return view.render('/patients/show', {patients: patients.toJSON()});
   }
 
+  async dashboard({view}){
+    const age60to64 = await Database.raw('SELECT COUNT(patients.id) as qtd FROM patients WHERE TIMESTAMPDIFF(YEAR,patients.data_nascimento,patients.data_dose1) BETWEEN  60 AND 64')
+    const age60to64List = JSON.parse(JSON.stringify(age60to64))
+    console.log(age60to64List[0])
+    return view.render('/index',{
+      age60to64 : age60to64List[0]
+    })
+  }
+
   async store({request, response, session}){
     const patient = new Patient()
     patient.nome = request.input('nome'),
@@ -37,8 +46,9 @@ class PatientController {
   .decrement('quantidade_doses', 1)
     
     await patient.save()
-    console.log("sucesso")
-    //return response.route('vaccineController.upVaccine' , {vaccine_id: request.input('laboratories')})
+    //console.log("sucesso")
+    session.flash({notification: "Paciente Vacinado com sucesso"})
+    return response.route('PatientController.detail', { id: patient.id})
 
   }
 
@@ -55,9 +65,18 @@ class PatientController {
   .decrement('quantidade_doses', 1)
     
     await patient.save()
-    console.log("sucesso")
-    //return response.route('vaccineController.upVaccine' , {vaccine_id: request.input('laboratories')})
+   //console.log("sucesso")
+   session.flash({notification: "Paciente Vacinado com sucesso"})
+   return response.route('PatientController.detail', { id: patient.id})
 
+  }
+
+  async detail({params, view}){
+    const patient = await Patient.find(params.id)
+     
+    return view.render('/patients/detail', {
+      patient: patient.toJSON()
+    })
   }
 }
 
