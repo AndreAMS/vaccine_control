@@ -39,101 +39,224 @@
     </div>
 
     <div class="col-12 mt-4">
-       <h2 class="text-center my-4">aguardando vacinação</h2>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">aguardando 2ª Dose</a>
+        </li>
+        <!--<li class="nav-item" role="presentation">
+          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+        </li>-->
+      </ul>
+      <div class="tab-content border border-top-0 px-2" id="myTabContent">
+        <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+          <h2 class="text-center py-4">aguardando 2ª dose</h2>
         
       <table class="table table-bordered table-hover">
         <thead class="thead-light">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Nome</th>
-            <th scope="col">Data Nascimento</th>
-            <th scope="col">CPF/SUS</th>
-            <th scope="col">Celular/Telefone</th>
-            <th scope="col">Endereço</th>
-            <th scope="col">1ª Dose</th>
-            <th scope="col">2ª Dose</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>André Augusto Martins Sobrinho</td>
-            <td>17/02/1993 <br> 28 anos</td>
-            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-            <td>(35) 9 9232-1806</td>
-            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-            <td> <span class="badge badge-pill badge-success">Concluído</span> <br> 10/03/2021 <br>  PFIZER: Lote: A0666</td>
-            <td>
-              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-             </td>
-          </tr>
-
-          <tr>
-            <th scope="row">2</th>
-            <td>André Augusto Martins Sobrinho</td>
-            <td>17/02/1993 <br> 28 anos</td>
-            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-            <td>(35) 9 9232-1806</td>
-            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-            <td>
-              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-             </td>
-            <td>
-              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-             </td>
-          </tr>
-
-          <tr>
-            <th scope="row">2</th>
-            <td>André Augusto Martins Sobrinho</td>
-            <td>17/02/1993 <br> 28 anos</td>
-            <td>CPF: 116.539.796-07 <br> SUS: 12345678</td>
-            <td>(35) 9 9232-1806</td>
-            <td>Rua Acácio Pereira Dias. 363 - Vila Nunes</td>
-            <td>
-              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-             </td>
-            <td>
-              <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão 16/03/2021</small> <br>
-              <a href="vacinar" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
-             </td>
-          </tr>
-          
-        </tbody>
-      </table>
+          <table class="table table-bordered table-hover display">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Data Nascimento</th>
+                <th scope="col">CPF/SUS</th>
+                
+                <th scope="col">Endereço</th>
+                <th scope="col" class="text-center">1ª Dose</th>
+                <th scope="col" class="text-center">2ª Dose</th>
+              </tr>
+            </thead>
+            <tbody>
+              @each(patient in  waiting2DoseList)
+              <tr>
+                <td scope="row">{{ ($loop.index + 1) }}</td>
+                <td>
+                  <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+                  @if(patient.tipo === 'P')
+                  <span class="badge badge-primary">Profissional de saúde</span> 
+                
+                 @elseif(patient.tipo === 'I')
+                 <span class="badge badge-info">Idoso</span> <br>
+               
+                @elseif(patient.tipo === 'D')
+                <span class="badge badge-info">Deficiente</span> 
+                
+                @elseif(patient.tipo === 'F')
+                <span class="badge badge-dark">Forças Armadas</span> 
+               
+                @elseif(patient.tipo === 'T')
+                <span class="badge badge-light">Professor</span> 
+            
+                @elseif(patient.tipo === 'C')
+                <span class="badge badge-info">Comorbidade</span> 
+                  @endif
+                  <br>
+                  <small class="text-mutted">{{patient.tipo_descricao}}</small>
+                </td>
+                <td>{{patient.data_nascimento}}<br> 
+                  
+                </td>
+                <td>
+                  @unless(patient.documento)
+                  <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+                  @else
+                {{patient.documento}}  
+                @endunless
+                </td>
+              
+                <td>{{patient.endereco}}</td>
+                <td class="text-center"> 
+                  @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+                  <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+                  <br>
+                  <small class="text-info">{{patient.aplicador}}</small>
+                  @elseif(patient.lote_dose_1 === 'R')
+                  <span class="badge badge-pill badge-danger">Recusado</span>
+                  @else
+                  <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+                  @endif
+                </td>
+                <td class="text-center">
+                  @if(patient.lote_dose_1 == null)
+                  <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+                  @elseif(patient.lote_dose_1 === 'R')
+                  <span class="badge badge-pill badge-danger">Recusado</span>
+                  @elseif(patient.lote_dose_2 === 'F')
+                  <span class="badge badge-dark">Faleceu</span>
+                 @elseif(patient.lote_dose_2 != null)
+                  <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+                  <small class="text-info">{{patient.aplicador2}}</small>
+                  @else
+                  <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+                  <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+                  @endif
+                 </td>
+              </tr>
+              @endeach
+             
+              
+            </tbody>
+          </table>
+        </div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+      </div>
+       
     </div>
   </div>
+
+ 
+  @each(t in total) 
+  <input type="hidden" name="total" id="total" value="{{t.qtd}}">
+  @endeach
+
+  @each(t in  totalDose1) 
+  <input type="hidden" name="totalDose1" id="totalDose1" value="{{t.qtd}}">
+  @endeach
+
+  @each(t in  waiting2Dose) 
+  <input type="hidden" name="waiting2Dose" id="waiting2Dose" value="{{t.qtd}}">
+  @endeach
+
+  @each(t in  totalImmunized) 
+  <input type="hidden" name="totalImmunized" id="totalImmunized" value="{{t.qtd}}">
+  @endeach
+
   @each(age in age60to64) 
   <input type="hidden" name="faixa1" id="faixa1" value="{{age.qtd}}">
   @endeach
+  @each(age in age65to69) 
+  <input type="hidden" name="faixa2" id="faixa2" value="{{age.qtd}}">
+  @endeach
+  @each(age in age70to74) 
+  <input type="hidden" name="faixa3" id="faixa3" value="{{age.qtd}}">
+  @endeach
+
+  @each(age in age75to79) 
+  <input type="hidden" name="faixa4" id="faixa4" value="{{age.qtd}}">
+  @endeach
+
+  @each(age in age80to84) 
+  <input type="hidden" name="faixa5" id="faixa5" value="{{age.qtd}}">
+  @endeach
+ 
+  @each(age in age85to89) 
+  <input type="hidden" name="faixa6" id="faixa6" value="{{age.qtd}}">
+  @endeach
+
+  @each(age in age90) 
+  <input type="hidden" name="faixa7" id="faixa7" value="{{age.qtd}}">
+  @endeach
+
+  @each(p in healthProfessionals) 
+  <input type="hidden" name="pSaude" id="pSaude" value="{{p.qtd}}">
+  @endeach
+
+  @each(p in securityProfessionals) 
+  <input type="hidden" name="fSeguranca" id="fSeguranca" value="{{p.qtd}}">
+  @endeach
+
+  @each(p in age) 
+  <input type="hidden" name="idosos" id="idosos" value="{{p.qtd}}">
+  @endeach
+
+  @each(p in  deficient) 
+  <input type="hidden" name="deficientes" id="deficientes" value="{{p.qtd}}">
+  @endeach
+
+  @each(p in  refused) 
+  <input type="hidden" name="recusados" id="recusados" value="{{p.qtd}}">
+  @endeach
+
+  @each(p in  deceased) 
+  <input type="hidden" name="falecidos" id="falecidos" value="{{p.qtd}}">
+  @endeach
+  
   <script>
      var oilCanvas = document.getElementById("oilChart");
 
 //Chart.defaults.global.defaultFontFamily = "Lato";
 //Chart.defaults.global.defaultFontSize = 18;
+const total = $('#total').val() //Total Cadastrados
+const totalDose1 = $('#totalDose1').val() //Total Vacinados 1ª Dose
+const waiting2Dose = $('#waiting2Dose').val() //Total Aguardando 2ª Dose
+const totalImmunized = $('#totalImmunized').val() //Total Imunizados - receberam as duas doses da vacina
 const faixa1 = $('#faixa1').val() //60-64
+const faixa2 = $('#faixa2').val() //65-69
+const faixa3 = $('#faixa3').val() //70-74
+const faixa4 = $('#faixa4').val() //75-79
+const faixa5 = $('#faixa5').val() //80-84
+const faixa6 = $('#faixa6').val() //85-89
+const faixa7 = $('#faixa7').val() //90>
+const pSaude = $('#pSaude').val() //Profissionais de saude
+//alert(pSaude)
+const fSeguranca = $('#fSeguranca').val() //Força de segurança
+const idosos = $('#idosos').val() //Idosos
+const deficientes = $('#deficientes').val() //Deficientes
+const recusados = $('#recusados').val() //Recusados
+const falecidos = $('#falecidos').val() //Falecidos
+
 //alert(faixa1)
 var oilData = {
     labels: [
-        "Profissionais de Saúde",
-        "Idosos",
-        "Forças Armadas",
-        "Recusado",
-        "Falecido"
+        "Vacinados 1ª Dose",
+        "Vacinados 2ª Dose",
+        "Aguardando 2ª Dose",
+        //"Recusado",
+        //"Falecido"
     ],
     datasets: [
         {
-            data: [faixa1, 86.2, 52.2, 51.2, 50.2],
+            data: [totalDose1, totalImmunized,  waiting2Dose],
             backgroundColor: [
-                "#007bff",
-                "#63FF84",
-                "#84FF63",
-                "#dc3545",
-                "#343a40"
+                "#3f99d3",
+                "#28a745",
+                "#ffc107",
+                //"#dc3545",
+                //"#343a40"
             ]
         }]
 };

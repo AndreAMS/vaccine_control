@@ -18,35 +18,91 @@
     <i class="fi-rr-users"></i> <span class="text-light-blue">pacientes</span>
     <a href="patients/add" class="btn btn-primary float-right"><i class="fi-rr-plus"></i> novo paciente</a>
   </h2>
-  <hr>
+  <!--<hr>
   <input id="search" type="text" class="form-control"  placeholder="Pesquisa de Pacientes">
-  <hr>
-  <table class="table table-bordered table-hover">
+  <hr>-->
+  <div class="col-12 mt-4">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="tab1-tab" data-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="true">60 a 64</a>
+      </li>
+     <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab2-tab" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false">65 a 69</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab3-tab" data-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false">70 a 74</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab4-tab" data-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false">75 a 79</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab5-tab" data-toggle="tab" href="#tab5" role="tab" aria-controls="tab5" aria-selected="false">80 a 84</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab6-tab" data-toggle="tab" href="#tab6" role="tab" aria-controls="tab6" aria-selected="false">85 a 89</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab7-tab" data-toggle="tab" href="#tab7" role="tab" aria-controls="tab7" aria-selected="false">90 mais</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab8-tab" data-toggle="tab" href="#tab8" role="tab" aria-controls="tab8" aria-selected="false">P. Saúde</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab9-tab" data-toggle="tab" href="#tab9" role="tab" aria-controls="tab9" aria-selected="false">F. Armadas</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab10-tab" data-toggle="tab" href="#tab10" role="tab" aria-controls="tab10" aria-selected="false">Prof.</a>
+      </li>
+      <li class="nav-item" role="presentation">
+        <a class="nav-link" id="tab11-tab" data-toggle="tab" href="#tab11" role="tab" aria-controls="tab11" aria-selected="false">Comorbidade</a>
+      </li>
+      <!-- <li class="nav-item" role="presentation">
+        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+      </li>-->
+    </ul>
+    <div class="tab-content border border-top-0 px-2" id="myTabContent">
+      <!-- 60 a 64 -->
+  <div class="tab-pane fade show active" id="tab1" role="tabpanel" aria-labelledby="tab1-tab">
+  <h2 class="text-center py-4">60 a 64 anos</h2>
+  <table class="table table-bordered table-hover display">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Nome</th>
         <th scope="col">Data Nascimento</th>
         <th scope="col">CPF/SUS</th>
-        <th scope="col">Celular/Telefone</th>
+       
         <th scope="col">Endereço</th>
         <th scope="col" class="text-center">1ª Dose</th>
         <th scope="col" class="text-center">2ª Dose</th>
       </tr>
     </thead>
     <tbody>
-      @each(patient in patients)
+      @each(patient in age60to64)
       <tr>
-        <th scope="row">{{ ($loop.index + 1) }}</th>
+        <td scope="row">{{ ($loop.index + 1) }}</td>
         <td>
        <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
           @if(patient.tipo === 'P')
-          <span class="badge badge-primary">Profissional de saúde</span> <br>
-         <small class="text-mutted">{{patient.tipo_descricao}}</small>
+          <span class="badge badge-primary">Profissional de saúde</span> 
+        
          @elseif(patient.tipo === 'I')
          <span class="badge badge-info">Idoso</span> <br>
-        <small class="text-mutted">{{patient.tipo_descricao}}</small>
+       
+        @elseif(patient.tipo === 'D')
+        <span class="badge badge-info">Deficiente</span> 
+        
+        @elseif(patient.tipo === 'F')
+        <span class="badge badge-dark">Forças Armadas</span> 
+       
+        @elseif(patient.tipo === 'T')
+        <span class="badge badge-light">Professor</span> 
+
+        @elseif(patient.tipo === 'C')
+        <span class="badge badge-info">Comorbidade</span> 
           @endif
+          <br>
+          <small class="text-mutted">{{patient.tipo_descricao}}</small>
         </td>
         <td>{{patient.data_nascimento}}<br> 
           
@@ -58,14 +114,7 @@
         {{patient.documento}}  
         @endunless
         </td>
-        <td>
-          @unless(patient.celular)
-          -
-          @else
-        {{patient.celular}}
-        @endunless
-         
-        </td>
+      
         <td>{{patient.endereco}}</td>
         <td class="text-center"> 
           @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
@@ -94,10 +143,889 @@
           @endif
          </td>
       </tr>
-      @endeach
-     
-      
+      @endeach      
     </tbody>
   </table>
- 
+
+  </div>
+  <!-- End 60-64 -->
+
+
+    <!-- 65-69 -->
+    <div class="tab-pane fade" id="tab2" role="tabpanel" aria-labelledby="tab2-tab">
+      <h2 class="text-center py-4">65 a 69 anos</h2>
+  <table class="table table-bordered table-hover display">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Data Nascimento</th>
+        <th scope="col">CPF/SUS</th>
+       
+        <th scope="col">Endereço</th>
+        <th scope="col" class="text-center">1ª Dose</th>
+        <th scope="col" class="text-center">2ª Dose</th>
+      </tr>
+    </thead>
+    <tbody>
+      @each(patient in age65to69)
+      <tr>
+        <td scope="row">{{ ($loop.index + 1) }}</td>
+        <td>
+       <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+          @if(patient.tipo === 'P')
+          <span class="badge badge-primary">Profissional de saúde</span> 
+        
+         @elseif(patient.tipo === 'I')
+         <span class="badge badge-info">Idoso</span> <br>
+       
+        @elseif(patient.tipo === 'D')
+        <span class="badge badge-info">Deficiente</span> 
+        
+        @elseif(patient.tipo === 'F')
+        <span class="badge badge-dark">Forças Armadas</span> 
+       
+        @elseif(patient.tipo === 'T')
+        <span class="badge badge-light">Professor</span> 
+
+        @elseif(patient.tipo === 'C')
+        <span class="badge badge-info">Comorbidade</span> 
+          @endif
+          <br>
+          <small class="text-mutted">{{patient.tipo_descricao}}</small>
+        </td>
+        <td>{{patient.data_nascimento}}<br> 
+          
+        </td>
+        <td>
+          @unless(patient.documento)
+          <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+          @else
+        {{patient.documento}}  
+        @endunless
+        </td>
+      
+        <td>{{patient.endereco}}</td>
+        <td class="text-center"> 
+          @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+          <br>
+          <small class="text-info">{{patient.aplicador}}</small>
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
+          @else
+          <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
+        </td>
+        <td class="text-center">
+          @if(patient.lote_dose_1 == null)
+          <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+          @elseif(patient.lote_dose_1 === 'R')
+          <span class="badge badge-pill badge-danger">Recusado</span>
+          @elseif(patient.lote_dose_2 === 'F')
+          <span class="badge badge-dark">Faleceu</span>
+         @elseif(patient.lote_dose_2 != null)
+          <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+          <small class="text-info">{{patient.aplicador2}}</small>
+          @else
+          <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+          <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+          @endif
+         </td>
+      </tr>
+      @endeach      
+    </tbody>
+  </table>
+  </div>   
+ <!-- End 65-69 -->
+
+ <!-- 70-74 -->
+ <div class="tab-pane fade" id="tab3" role="tabpanel" aria-labelledby="tab3-tab">
+  <h2 class="text-center py-4">70 a 74 anos</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in age70to74)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End 70-74 -->
+<!-- 75-79 -->
+<div class="tab-pane fade" id="tab4" role="tabpanel" aria-labelledby="tab4-tab">
+  <h2 class="text-center py-4">75 a 79 anos</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in age75to79)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End 75-79 -->
+<!-- 80-84 -->
+<div class="tab-pane fade" id="tab5" role="tabpanel" aria-labelledby="tab5-tab">
+  <h2 class="text-center py-4">80 a 84 anos</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in age80to84)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End 80-84 -->
+<!-- 85-89 -->
+<div class="tab-pane fade" id="tab6" role="tabpanel" aria-labelledby="tab6-tab">
+  <h2 class="text-center py-4">85 a 89 anos</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in age85to89)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End 85-89 -->
+
+<!-- 90 mais -->
+<div class="tab-pane fade" id="tab7" role="tabpanel" aria-labelledby="tab7-tab">
+  <h2 class="text-center py-4">90 mais</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in age90)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End 90 mais -->
+
+<!-- Profissionais de Saude -->
+<div class="tab-pane fade" id="tab8" role="tabpanel" aria-labelledby="tab8-tab">
+  <h2 class="text-center py-4">Profissionais de Saude</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in healthProfessionals)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End Profissionais de saude -->
+
+<!-- Forças Armadas -->
+<div class="tab-pane fade" id="tab9" role="tabpanel" aria-labelledby="tab9-tab">
+  <h2 class="text-center py-4">Forças Armadas</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in securityProfessionals)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End Forças Armadas -->
+
+
+<!-- Professors -->
+<div class="tab-pane fade" id="tab10" role="tabpanel" aria-labelledby="tab10-tab">
+  <h2 class="text-center py-4">Professors</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in teachers)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- End Professors -->
+
+<!-- Comorbidade -->
+<div class="tab-pane fade" id="tab11" role="tabpanel" aria-labelledby="tab11-tab">
+  <h2 class="text-center py-4"> Comorbidade</h2>
+<table class="table table-bordered table-hover display">
+<thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Nome</th>
+    <th scope="col">Data Nascimento</th>
+    <th scope="col">CPF/SUS</th>
+   
+    <th scope="col">Endereço</th>
+    <th scope="col" class="text-center">1ª Dose</th>
+    <th scope="col" class="text-center">2ª Dose</th>
+  </tr>
+</thead>
+<tbody>
+  @each(patient in comorbidity)
+  <tr>
+    <td scope="row">{{ ($loop.index + 1) }}</td>
+    <td>
+   <a href="/patients/detail/{{patient.id}}">   {{patient.nome}} </a> <br>
+      @if(patient.tipo === 'P')
+      <span class="badge badge-primary">Profissional de saúde</span> 
+    
+     @elseif(patient.tipo === 'I')
+     <span class="badge badge-info">Idoso</span> <br>
+   
+    @elseif(patient.tipo === 'D')
+    <span class="badge badge-info">Deficiente</span> 
+    
+    @elseif(patient.tipo === 'F')
+    <span class="badge badge-dark">Forças Armadas</span> 
+   
+    @elseif(patient.tipo === 'T')
+    <span class="badge badge-light">Professor</span> 
+
+    @elseif(patient.tipo === 'C')
+    <span class="badge badge-info">Comorbidade</span> 
+      @endif
+      <br>
+      <small class="text-mutted">{{patient.tipo_descricao}}</small>
+    </td>
+    <td>{{patient.data_nascimento}}<br> 
+      
+    </td>
+    <td>
+      @unless(patient.documento)
+      <span class="badge badge-pill badge-warning">Verificar 2ª dose</span>
+      @else
+    {{patient.documento}}  
+    @endunless
+    </td>
+  
+    <td>{{patient.endereco}}</td>
+    <td class="text-center"> 
+      @if(patient.lote_dose_1 != null && patient.lote_dose_1 != 'R')
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose1}} <br> lote: {{patient.lote_dose_1}}
+      <br>
+      <small class="text-info">{{patient.aplicador}}</small>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @else
+      <a href="vaccines/vaccinate/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+    </td>
+    <td class="text-center">
+      @if(patient.lote_dose_1 == null)
+      <span class="badge badge-pill badge-info">Aguardando 1ª dose</span>
+      @elseif(patient.lote_dose_1 === 'R')
+      <span class="badge badge-pill badge-danger">Recusado</span>
+      @elseif(patient.lote_dose_2 === 'F')
+      <span class="badge badge-dark">Faleceu</span>
+     @elseif(patient.lote_dose_2 != null)
+      <span class="badge badge-pill badge-success">Concluído</span> <br> {{patient.data_dose2}} <br> lote: {{patient.lote_dose_2}} <br>
+      <small class="text-info">{{patient.aplicador2}}</small>
+      @else
+      <span class="badge badge-pill badge-warning">Pendente</span> <br> <small>Previsão {{patient.data_previsao_2_dose}}</small> <br>
+      <a href="vaccines/vaccinate2/{{patient.id}}" class="btn btn-primary btn-sm"><i class="fi-rr-syringe"></i> Vacinar</a>
+      @endif
+     </td>
+  </tr>
+  @endeach      
+</tbody>
+</table>
+</div>   
+<!-- Comorbidade -->
 @endsection

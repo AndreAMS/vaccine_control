@@ -20,7 +20,7 @@
    
     
 
-      <a class="btn btn-outline-secondary float-right mr-2" href="/patient/details/{{patient_id}}">
+      <a class="btn btn-outline-secondary float-right mr-2" href="/patients/detail/{{patient_id}}">
         <i class="fi-rr-angle-left"></i> Voltar
       </a>
 
@@ -37,7 +37,7 @@
       <div class="alert alert-warning" role="alert">
         Paciente Já recebeu a segunda dose
       </div>
-      @else  
+      @endif
       
       <h1 class="text-center">2ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
@@ -72,7 +72,7 @@
           </p>
         </div>
       </form>
-      @endif
+     
     </div>
   </div>
   <script>

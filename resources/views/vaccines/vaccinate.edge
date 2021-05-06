@@ -11,7 +11,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-transparent">
     <li class="breadcrumb-item"><a href="/">painel</a></li>
-    <li class="breadcrumb-item"><a href="/patient/details/{{patient_id}}">detalhes paciente</a></li>
+    <li class="breadcrumb-item"><a href="/patients/detail/{{patient_id}}">detalhes paciente</a></li>
     <li class="breadcrumb-item active" aria-current="page">vacinar</li>
   </ol>
 </nav>
@@ -37,7 +37,7 @@
       <div class="alert alert-warning" role="alert">
         Paciente Já recebeu a primeira dose
       </div>
-      @else  
+      @endif
       
       <h1 class="text-center">1ª dose</h1>
        <h3 class="text-center">{{patient.nome}}</h3>
@@ -75,7 +75,7 @@
           </p>
         </div>
       </form>
-      @endif
+     
     </div>
   </div>
   <script>
