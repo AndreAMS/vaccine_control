@@ -88,6 +88,7 @@ h1,h2,h3,h4,h5,h6{
 }
 .nav-tabs .nav-item.show .nav-link, .nav-tabs
 .nav-link {
+  font-size: 12px;
   color: #fff;
   background-color: #3f99d3;
   border-color: #dee2e6 #dee2e6 #f5f5f5;
