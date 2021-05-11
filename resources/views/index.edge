@@ -4,6 +4,27 @@
 @section('content')
   <h2 class="my-4"><i class="fi-rr-dashboard"></i> <span class="text-light-blue">painel de controle</span></h2>
   <div class="row justify-content-center">
+     <!--Relatórios-->
+     <div class="col-12 col-md-4">     
+      <div class="m-card text-center">
+        <h1><i class="fi-rr-stats"></i></h1>
+        @each(t in  totalDose1) 
+        <h3>Total 1ª Dose: {{t.qtd}}</h3>
+        <input type="hidden" name="totalDose1" id="totalDose1" value="{{t.qtd}}">
+        @endeach
+
+       @each(t in  waiting2Dose) 
+       <h3>Aguardando 2ª Dose: {{t.qtd}}</h3>
+       <input type="hidden" name="waiting2Dose" id="waiting2Dose" value="{{t.qtd}}">
+        @endeach
+
+       @each(t in  totalImmunized) 
+       <h3>Total Imunizados {{t.qtd}}</h3>
+        <input type="hidden" name="totalImmunized" id="totalImmunized" value="{{t.qtd}}">
+        @endeach
+     <!-- <canvas id="oilChart" width="600" height="400"></canvas>-->
+      </div>
+    </div>
      <!--Pacientes-->
     <div class="col-12 col-md-4">     
       <div class="m-card">
@@ -31,16 +52,7 @@
       </div>
     </div>-->
 
-    <!--Relatórios-->
-    <div class="col-12 col-md-4">     
-      <div class="m-card">
-        @each(t in total) 
-        <h3>Total 1ª Dose: {{t.qtd}}</h3>
-        <input type="hidden" name="total" id="total" value="{{t.qtd}}">
-        @endeach
-     <!-- <canvas id="oilChart" width="600" height="400"></canvas>-->
-      </div>
-    </div>
+   
 
     <div class="col-12 mt-4">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -155,17 +167,7 @@
  
  
 
-  @each(t in  totalDose1) 
-  <input type="hidden" name="totalDose1" id="totalDose1" value="{{t.qtd}}">
-  @endeach
-
-  @each(t in  waiting2Dose) 
-  <input type="hidden" name="waiting2Dose" id="waiting2Dose" value="{{t.qtd}}">
-  @endeach
-
-  @each(t in  totalImmunized) 
-  <input type="hidden" name="totalImmunized" id="totalImmunized" value="{{t.qtd}}">
-  @endeach
+  
 
   @each(age in age60to64) 
   <input type="hidden" name="faixa1" id="faixa1" value="{{age.qtd}}">
