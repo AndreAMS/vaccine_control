@@ -39,21 +39,30 @@
         <label for="">SUS/Cpf</label>
         <input type="text" class="form-control" placeholder="SUS ou CPF" name="documento" id="documento">
       </div>
+     
+      <div class="col-6 mb-2">
+        <label for="">Endereço</label>
+        <input type="text" class="form-control" placeholder="Endereço" name="endereco" id="endereco">
+      </div>
+
       <div class="col-6 mb-2">
         <label for="">Tipo Paciente</label>
-        <select name="sexo" id="sexo" class="form-control">
+        <select name="tipo" id="tipo" class="form-control">
           <option value="I">Idoso</option>
           <option value="C">Comorbidade</option>
           <option value="T">Professor</option>
           <option value="P">Profissional de Saúde</option>
-          <option value="P">Forças Armadas</option>
+          <option value="F">Forças Armadas</option>
         </select>
       </div>
-      <div class="col-7 mb-2">
-        <label for="">Endereço</label>
-        <input type="text" class="form-control" placeholder="Endereço" name="endereco" id="endereco">
+
+      <div class="col-6 mb-2">
+        <label for="">Descrição</label>
+        <input type="text" class="form-control" placeholder="Descrição EX: Enfermeiro, Idoso" name="descricao" id="descricao">
       </div>
+
     </div>
+    
     <p class="text-center">
       <button class="btn btn-primary btn-lg mt-4">Salvar</button>
     </p>
@@ -67,5 +76,7 @@
   let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
    $("#newDate").val(newDate)
   }
+
+  
 </script>
 @endsection

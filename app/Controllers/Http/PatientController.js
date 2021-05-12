@@ -115,7 +115,9 @@ class PatientController {
     patient.nome = request.input('nome'),
     patient.data_nascimento = request.input('newDate'),
     patient.sexo = request.input('sexo'),
-    patient.documento = request.input('documento')
+    patient.documento = request.input('documento'),
+    patient.tipo = request.input('tipo'),
+    patient.tipo_descricao = request.input('descricao')
 
     await patient.save()
 
