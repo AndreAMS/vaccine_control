@@ -133,6 +133,7 @@ class PatientController {
     patient.lote_dose_1 = request.input('laboratories')
     patient.data_dose1 = request.input('newDate')
     patient.data_previsao_2_dose = request.input('newDate2')
+    patient.aplicador = request.input('aplicador')
     console.log(">>>>>>>>>>>>" + request.input('laboratories'))
     await Database
   .table('vaccines')
@@ -152,6 +153,7 @@ class PatientController {
     //const vaccine = Patient.find(params.vaccine_id)
     patient.lote_dose_2 = request.input('laboratories')
     patient.data_dose2 = request.input('newDate')
+    patient.aplicador2 = request.input('aplicador')
     console.log(">>>>>>>>>>>>" + request.input('laboratories'))
     await Database
   .table('vaccines')
