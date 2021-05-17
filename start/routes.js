@@ -23,6 +23,8 @@ Route.get('/patients/detail/:id', 'PatientController.detail')
 Route.on('/login',).render('auth.login');
 Route.on('patients/add',).render('patients/create');
 Route.post('/patient/new', 'patientController.store')
+Route.get('/patients/edit/:id', 'patientController.edit')
+Route.put('/patients/edit/:id', 'patientController.update')
 //Route.on('/vaccines',).render('vaccines/list');
 Route.get('/vaccines', 'VaccineController.home')
 Route.on('vaccines/add',).render('vaccines/create');

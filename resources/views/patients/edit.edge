@@ -1,0 +1,83 @@
+@layout('layouts.main')
+@section('content')
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-transparent">
+    <li class="breadcrumb-item"><a href="/">painel</a></li>
+    <li class="breadcrumb-item"><a href="/patients">pacientes</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Novo paciente</li>
+  </ol>
+</nav>
+  <h2 class="my-4">
+    <i class="fi-rr-users"></i> <span class="text-light-blue">Novo Paciente</span>
+    <a href="/patients" class="btn btn-outline-secondary float-right"><i class="fi-rr-angle-left"></i> Voltar</a>
+  </h2>
+  <hr>
+<div class="row justify-content-center">
+  <div class="col-10">
+  <form action="{{'/patients/edit/' + patient.id + '?_method=PUT'}}" method="post">
+    {{ csrfField() }}
+    <h3 class="my-2">Dados Pessoais</h3>
+    <div class="row justify-content-center">
+      <div class="col-6 mb-2">
+        <label for="">Nome</label>
+        <input type="text" class="form-control" placeholder="Nome Completo" value="{{patient.nome}}" id="nome" name="nome">
+      </div>
+      <div class="col-4 mb-2">
+        <label for="">Data Nascimento</label>
+        <input type="text" class="form-control date" value="{{patient.data_nascimento}}" placeholder="Data Nascimento" name="data_nascimento" id="data_nascimento" onblur="change_date()">
+        <input type="hidden" id="newDate">
+      </div>
+      <div class="col-2 mb-2">
+        <label for="">Sexo</label>
+        <select name="sexo" id="sexo" class="form-control">
+          <option value="I">Indefinido</option>
+          <option value="F">Feminino</option>
+          <option value="M">Masculino</option>
+        </select>
+      </div>
+      <div class="col-6 mb-2">
+        <label for="">SUS/Cpf</label>
+        <input type="text" class="form-control"  value="{{patient.documento}}" placeholder="SUS ou CPF" name="documento" id="documento">
+      </div>
+     
+      <div class="col-6 mb-2">
+        <label for="">Endereço</label>
+        <input type="text" class="form-control" placeholder="Endereço" name="endereco" id="endereco">
+      </div>
+
+      <div class="col-6 mb-2">
+        <label for="">Tipo Paciente</label>
+        <select name="tipo" id="tipo" class="form-control">
+          <option value="I">Idoso</option>
+          <option value="C">Comorbidade</option>
+          <option value="T">Professor</option>
+          <option value="P">Profissional de Saúde</option>
+          <option value="F">Forças Armadas</option>
+          <option value="G">Gestante</option>
+        </select>
+      </div>
+
+      <div class="col-6 mb-2">
+        <label for="">Descrição</label>
+        <input type="text" class="form-control"  value="{{patient.tipo_descricao}}" placeholder="Descrição EX: Enfermeiro, Idoso" name="descricao" id="descricao">
+      </div>
+
+    </div>
+    
+    <p class="text-center">
+      <button class="btn btn-primary btn-lg mt-4">Salvar</button>
+    </p>
+  </form>
+</div>
+</div>
+<script>
+  function change_date(){
+   let oldDate = $("#data_nascimento").val();
+   alert(oldDate)
+  let newDate = moment(oldDate, 'DD/MM/YYYY').format("YYYY-MM-DD")
+   $("#newDate").val(newDate)
+  }
+
+  
+</script>
+@endsection

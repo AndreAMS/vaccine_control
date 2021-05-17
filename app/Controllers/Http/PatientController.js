@@ -174,6 +174,31 @@ class PatientController {
       patient: patient.toJSON()
     })
   }
+
+  async edit ({ params, view }) {
+    const edit = await Patient.find(params.id)
+    return view.render('patients/edit', {
+      patient: edit
+    })
+  }
+
+  async update({request, response, session, params}){
+    const patient = await Patient.find(params.id)
+    patient.nome = request.input('nome'),
+    patient.data_nascimento = request.input('newDate'),
+    patient.sexo = request.input('sexo'),
+    patient.documento = request.input('documento'),
+    patient.tipo = request.input('tipo'),
+    patient.tipo_descricao = request.input('descricao')
+
+    await patient.save()
+
+    session.flash({notification: "Paciente Incluido com sucesso"})
+    //return response.route('vaccineController.vaccinate', { patient_id: patient.id })
+    return response.redirect('/patients')
+  }
+
+
 }
 
 module.exports = PatientController
