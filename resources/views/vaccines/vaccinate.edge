@@ -49,6 +49,7 @@
             <label for="Laboratório/ Vacina">Lote Vacina/Laboratorio</label>
              <select name="laboratories" id="laboratories" class="form-control" onchange="getVaccineID(this)">
                <option value="0">Selecione o lote</option>
+               <option value="OM">Outro Município</option>
                <option value="R">Recusado</option>
                @each(vaccine in lotesList)
                  <option  value="{{vaccine.lote}}" data-vaccine="{{vaccine.id}}" {{ vaccine.quantidade_doses >=0 ? vaccine.quantidade_doses : 'disabled' }}>Lote: {{vaccine.lote}} | {{vaccine.nome}} - {{vaccine.nome_vacina}} | {{vaccine.quantidade_doses}} dose(s) diponíveis </option>
